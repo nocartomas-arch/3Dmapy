@@ -8,26 +8,59 @@
  "podtitul": "Beroun z otevřených dat, ve stylu SimCity 2000.",
  "popis": "Izometrická pixel-art mapa: Beroun ve stylu SimCity 2000. Roční období, den a noc, počasí a příběhy míst.",
  "url": "",
- "stred": [14.058996, 49.961382],
+ "stred": [
+  14.058996,
+  49.961382
+ ],
  "polovina": 1150.0,
  "ctverce": [
-  [0, 2],
-  [1, 2],
-  [-1, 1],
-  [0, 1],
-  [1, 1],
-  [-1, 0],
-  [0, 0],
-  [1, 0],
-  [2, 0],
-  [0, -1]
+  [
+   0,
+   2
+  ],
+  [
+   1,
+   2
+  ],
+  [
+   -1,
+   1
+  ],
+  [
+   0,
+   1
+  ],
+  [
+   1,
+   1
+  ],
+  [
+   -1,
+   0
+  ],
+  [
+   0,
+   0
+  ],
+  [
+   1,
+   0
+  ],
+  [
+   2,
+   0
+  ],
+  [
+   0,
+   -1
+  ]
  ],
  "href": 272.7,
  "dno": -91,
  "mhd": {
-  "gtfs": null,
-  "zdroj": null,
-  "zdroj_url": null
+  "gtfs": "https://data.pid.cz/PID_GTFS.zip",
+  "zdroj": "Pražská integrovaná doprava (ROPID)",
+  "zdroj_url": "https://pid.cz/o-systemu/opendata/"
  },
  "vanocni_strom": null
 }

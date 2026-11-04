@@ -42,9 +42,9 @@
  "href": 315.5,
  "dno": -132,
  "mhd": {
-  "gtfs": null,
-  "zdroj": null,
-  "zdroj_url": null
+  "gtfs": "https://data.pid.cz/PID_GTFS.zip",
+  "zdroj": "Pražská integrovaná doprava (ROPID)",
+  "zdroj_url": "https://pid.cz/o-systemu/opendata/"
  },
  "vanocni_strom": null
 }
