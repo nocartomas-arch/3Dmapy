@@ -26,9 +26,10 @@ LD = json.dumps({'@context': 'https://schema.org', '@type': 'WebApplication', 'n
                  'isBasedOn': ['https://www.openstreetmap.org/', 'https://overturemaps.org/', 'https://geoportal.cuzk.cz/']},
                 ensure_ascii=False)
 head = f'''<!doctype html>
-<html lang="cs">
+<html lang="cs" translate="no">
 <head>
 <meta charset="utf-8">
+<meta name="google" content="notranslate">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta property="og:title" content="{E(M['titulek'])}">
 <meta property="og:description" content="{E(M['popis'])}">
