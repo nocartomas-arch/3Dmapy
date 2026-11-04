@@ -38,3 +38,4 @@ mesta/*/*
 !mesta/*/assets/
 mesta/*/assets/*
 !mesta/*/assets/dominanty.json
+mesta/*.log
