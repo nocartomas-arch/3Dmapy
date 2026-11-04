@@ -1,0 +1,50 @@
+{
+ "nazev": "Králův Dvůr",
+ "titulek": "Izometrický Králův Dvůr",
+ "h1": [
+  "Izometrický",
+  "Králův Dvůr"
+ ],
+ "podtitul": "Králův Dvůr z otevřených dat, ve stylu SimCity 2000.",
+ "popis": "Izometrická pixel-art mapa: Králův Dvůr ve stylu SimCity 2000. Roční období, den a noc, počasí a příběhy míst.",
+ "url": "",
+ "stred": [
+  14.039773,
+  49.957428
+ ],
+ "polovina": 1150.0,
+ "ctverce": [
+  [
+   -1,
+   0
+  ],
+  [
+   0,
+   0
+  ],
+  [
+   -1,
+   -1
+  ],
+  [
+   0,
+   -1
+  ],
+  [
+   -1,
+   -2
+  ],
+  [
+   0,
+   -2
+  ]
+ ],
+ "href": 270.8,
+ "dno": -77,
+ "mhd": {
+  "gtfs": "https://data.pid.cz/PID_GTFS.zip",
+  "zdroj": "Pražská integrovaná doprava (ROPID)",
+  "zdroj_url": "https://pid.cz/o-systemu/opendata/"
+ },
+ "vanocni_strom": null
+}
