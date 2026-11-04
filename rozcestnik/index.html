@@ -64,7 +64,7 @@ body.open { overflow: hidden; }
     Data © přispěvatelé OpenStreetMap, © ČÚZK, jízdní řády PID. Je to vizualizace pro radost, ne přesná mapa.
   </footer>
 </main>
-<div class="viewer" id="viewer"><iframe id="frame" title="Mapa města" allow="fullscreen; clipboard-write"></iframe></div>
+<div class="viewer" id="viewer"><iframe id="frame" title="Mapa města" allow="fullscreen; clipboard-write; web-share"></iframe></div>
 <button class="back" id="back" type="button">← Města</button>
 <script>
 // slug, název, poznámka, adresa mapy (null = připravuje se)
@@ -84,17 +84,29 @@ for (const [slug, nazev, pozn, url] of MESTA) {
   if (url) el.addEventListener('click', () => { location.hash = slug; });
   grid.appendChild(el);
 }
+// adresa: #<město> nebo #<město>/<pohled mapy> (např. #kraluv-dvur/leto@49.92853,14.00142,0.25)
 function route() {
-  const m = MESTA.find((x) => x[0] === location.hash.slice(1) && x[3]);
+  const [slug, ...rest] = location.hash.slice(1).split('/');
+  const m = MESTA.find((x) => x[0] === slug && x[3]);
   if (m) {
-    if (frame.dataset.slug !== m[0]) { frame.src = m[3]; frame.dataset.slug = m[0]; }
-    viewer.classList.add('on'); document.body.classList.add('open'); document.title = `Izometrický ${m[1]}`.replace('Izometrický Jílové', 'Izometrické Jílové');
+    if (frame.dataset.slug !== m[0]) {
+      const ramec = location.origin + location.pathname + '#' + m[0];
+      frame.src = m[3] + '?ramec=' + encodeURIComponent(ramec) + (rest.length ? '#' + rest.join('/') : '');
+      frame.dataset.slug = m[0];
+    }
+    viewer.classList.add('on'); document.body.classList.add('open');
+    document.title = (m[0] === 'jilove-u-prahy' ? 'Izometrické ' : 'Izometrický ') + m[1];
     frame.focus();
   } else {
     viewer.classList.remove('on'); document.body.classList.remove('open'); document.title = 'Izometrická města';
   }
 }
-document.getElementById('back').addEventListener('click', () => { history.pushState(null, '', location.pathname); route(); });
+// mapa v rámečku hlásí svůj pohled -> přepsat adresu rozcestníku (bez nového záznamu v historii)
+addEventListener('message', (e) => {
+  if (e.source !== frame.contentWindow || typeof e.data?.izomapa !== 'string' || !frame.dataset.slug) return;
+  history.replaceState(null, '', '#' + frame.dataset.slug + '/' + e.data.izomapa);
+});
+document.getElementById('back').addEventListener('click', () => { history.pushState(null, '', location.pathname); frame.dataset.slug = ''; frame.src = 'about:blank'; route(); });
 addEventListener('hashchange', route);
 route();
 </script>
