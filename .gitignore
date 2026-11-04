@@ -14,10 +14,27 @@ podklady/
 assets/zabaged.json
 assets/dmp_vysky.json
 
-# konfigurace města je v tomhle repu verzovaná (Králův Dvůr)
-/mesto.json.bak
 
 # hlášení: vlastní konfigurace a hesla serveru
 /wrangler.jsonc
 .dev.vars
 .wrangler/
+
+# více měst: ./mesto.sh <město> přepíná odkazy v kořeni na mesta/<město>/
+# verzuje se jen recept města (mesto.json, mista.json, assets/dominanty.json), data a výstupy ne
+.mesto
+/build
+/site
+/data
+/data_*
+/mesto.json
+/mista.json
+/assets/dominanty.json
+/assets/dmp_vysky.json
+/assets/zabaged.json
+mesta/*/*
+!mesta/*/mesto.json
+!mesta/*/mista.json
+!mesta/*/assets/
+mesta/*/assets/*
+!mesta/*/assets/dominanty.json
