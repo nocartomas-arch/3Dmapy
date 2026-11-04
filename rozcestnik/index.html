@@ -45,7 +45,13 @@ footer a { color: var(--muted); }
 .viewer.on ~ .back { display: block; }
 .back:hover { border-color: var(--lamp); }
 body.open { overflow: hidden; }
-@media (max-width: 600px) { main { padding-top: 32px; } .back { top: auto; bottom: 16px; right: 16px; } }
+/* mobil: tlačítko jako proužek nad mapou, nic nepřekrývá (mapa má vlastní lištu dole a hlavičku nahoře) */
+@media (max-width: 760px) {
+  main { padding-top: 32px; }
+  .viewer { top: calc(40px + env(safe-area-inset-top, 0px)); }
+  .back { top: 0; left: 0; right: 0; height: calc(40px + env(safe-area-inset-top, 0px)); padding: env(safe-area-inset-top, 0px) 16px 0;
+    border: 0; border-bottom: 2px solid var(--edge); box-shadow: none; text-align: left; background: var(--night); }
+}
 </style>
 </head>
 <body>
