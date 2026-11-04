@@ -10,7 +10,7 @@ Prohlížeč z toho podle skutečného času dopočítá, kde je každé vozidlo
 """
 import csv, io, json, os, subprocess, sys, time, zipfile
 import shapely
-from geo import MESTO, to_local
+from geo import MESTO, to_local, extent
 
 URL = (MESTO.get('mhd') or {}).get('gtfs')
 if not URL: sys.exit('mesto.json nemá mhd.gtfs – MHD se vynechá')
@@ -31,10 +31,12 @@ pts = {}
 for r in T('shapes'):
     if r['shape_id'] in used: pts.setdefault(r['shape_id'], []).append((int(r['shape_pt_sequence']), float(r['shape_pt_lon']), float(r['shape_pt_lat']), float(r['shape_dist_traveled'] or 0)))
 shapes, SI, SLEN = [], {}, {}
+BOX = shapely.box(*extent(200.0))
 for k, v in pts.items():
     if len(v) < 2: continue
     v.sort(); x, y = to_local([p[1] for p in v], [p[2] for p in v])
     l = shapely.LineString(list(zip(x, y)))
+    if not l.intersects(BOX): continue                          # jen trasy, které projíždějí mapou (velké sítě typu PID)
     SI[k] = len(shapes); SLEN[k] = (l.length, v[-1][3] or 1.0)
     shapes.append([[round(a, 1), round(b, 1)] for a, b in shapely.simplify(l, 1.0).coords])
 services = {}
@@ -55,6 +57,7 @@ for r in T('stop_times'):
 out = []
 for t in trips:
     if len(routes[RI[t['route_id']]][0]) > 4: continue           # poptávková doprava apod. bez pravidelné trasy
+    if routes[RI[t['route_id']]][1] not in (0, 3, 11): continue  # jen tramvaj, autobus, trolejbus (vlaky a přívozy prohlížeč neumí)
     s = sorted(st.get(t['trip_id'], []))
     if len(s) < 2 or t['shape_id'] not in SI: continue
     L, gl = SLEN[t['shape_id']]; k = L / gl                     # vzdálenost z jízdního řádu -> délka trasy v mapě
@@ -69,6 +72,10 @@ for t in trips:
         zs += [nid(nm), a - t0]
     out.append([RI[t['route_id']], SI[t['shape_id']], t['service_id'], t0, seq, nid(t['trip_headsign'] or s[-1][4]), zs])
 out.sort(key=lambda q: q[3])
+RU = sorted({q[0] for q in out}); RM = {r: i for i, r in enumerate(RU)}   # jen použité linky a kalendáře
+routes = [routes[r] for r in RU]
+for q in out: q[0] = RM[q[0]]
+services = {k: v for k, v in services.items() if k in {q[2] for q in out}}
 json.dump({'routes': routes, 'shapes': shapes, 'services': services, 'trips': out, 'names': names,
            'feed': [r for r in T('feed_info')][0].get('feed_version', '')}, open('site/mhd.json', 'w'), separators=(',', ':'), ensure_ascii=False)
 print('linek', len(routes), 'tras', len(shapes), 'spojů', len(out), 'kB', os.path.getsize('site/mhd.json') // 1000)
