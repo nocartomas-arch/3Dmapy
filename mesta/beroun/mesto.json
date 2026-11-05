@@ -1,66 +1,66 @@
 {
- "nazev": "Beroun",
- "titulek": "Izometrický Beroun",
- "h1": [
-  "Izometrický",
-  "Beroun"
- ],
- "podtitul": "Beroun z otevřených dat, ve stylu SimCity 2000.",
- "popis": "Izometrická pixel-art mapa: Beroun ve stylu SimCity 2000. Roční období, den a noc, počasí a příběhy míst.",
- "url": "",
- "stred": [
-  14.058996,
-  49.961382
- ],
- "polovina": 1150.0,
- "ctverce": [
-  [
-   0,
-   2
+  "nazev": "Beroun",
+  "titulek": "Izometrický Beroun",
+  "h1": [
+    "Izometrický",
+    "Beroun"
   ],
-  [
-   1,
-   2
+  "podtitul": "Beroun z otevřených dat, ve stylu SimCity 2000.",
+  "popis": "Izometrická pixel-art mapa: Beroun ve stylu SimCity 2000. Roční období, den a noc, počasí a příběhy míst.",
+  "url": "https://nocartomas-arch.github.io/mapa-beroun/",
+  "stred": [
+    14.058996,
+    49.961382
   ],
-  [
-   -1,
-   1
+  "polovina": 1150.0,
+  "ctverce": [
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      -1,
+      1
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      -1,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      0,
+      -1
+    ]
   ],
-  [
-   0,
-   1
-  ],
-  [
-   1,
-   1
-  ],
-  [
-   -1,
-   0
-  ],
-  [
-   0,
-   0
-  ],
-  [
-   1,
-   0
-  ],
-  [
-   2,
-   0
-  ],
-  [
-   0,
-   -1
-  ]
- ],
- "href": 272.7,
- "dno": -91,
- "mhd": {
-  "gtfs": "https://data.pid.cz/PID_GTFS.zip",
-  "zdroj": "Pražská integrovaná doprava (ROPID)",
-  "zdroj_url": "https://pid.cz/o-systemu/opendata/"
- },
- "vanocni_strom": null
+  "href": 272.7,
+  "dno": -91,
+  "mhd": {
+    "gtfs": "https://data.pid.cz/PID_GTFS.zip",
+    "zdroj": "Pražská integrovaná doprava (ROPID)",
+    "zdroj_url": "https://pid.cz/o-systemu/opendata/"
+  },
+  "vanocni_strom": null
 }
