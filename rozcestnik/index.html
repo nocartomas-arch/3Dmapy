@@ -5,7 +5,7 @@
 <meta name="google" content="notranslate">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Izometrická města</title>
-<meta name="description" content="Izometrické pixel-art mapy měst z otevřených dat: Králův Dvůr, Jílové u Prahy, Varnsdorf.">
+<meta name="description" content="Izometrické pixel-art mapy měst z otevřených dat: Králův Dvůr, Jílové u Prahy, Varnsdorf, Beroun, Praha 12.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
 <style>
@@ -72,6 +72,8 @@ const MESTA = [
   ['kraluv-dvur', 'Králův Dvůr', 'Okres Beroun', 'https://nocartomas-arch.github.io/mapa-kraluv-dvur/'],
   ['jilove-u-prahy', 'Jílové u Prahy', 'Okres Praha-západ', 'https://nocartomas-arch.github.io/mapa-jilove-u-prahy/'],
   ['varnsdorf', 'Varnsdorf', 'Okres Děčín', 'https://nocartomas-arch.github.io/mapa-varnsdorf/'],
+  ['beroun', 'Beroun', 'Okres Beroun', null],
+  ['praha-12', 'Praha 12', 'Modřany, Kamýk, Komořany, Točná, Cholupice', null],
 ];
 const grid = document.getElementById('grid'), viewer = document.getElementById('viewer'), frame = document.getElementById('frame');
 for (const [slug, nazev, pozn, url] of MESTA) {
@@ -95,7 +97,7 @@ function route() {
       frame.dataset.slug = m[0];
     }
     viewer.classList.add('on'); document.body.classList.add('open');
-    document.title = (m[0] === 'jilove-u-prahy' ? 'Izometrické ' : 'Izometrický ') + m[1];
+    document.title = ({ 'jilove-u-prahy': 'Izometrické ', 'praha-12': 'Izometrická ' }[m[0]] || 'Izometrický ') + m[1];
     frame.focus();
   } else {
     viewer.classList.remove('on'); document.body.classList.remove('open'); document.title = 'Izometrická města';

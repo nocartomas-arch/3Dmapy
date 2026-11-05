@@ -1,0 +1,54 @@
+{
+  "nazev": "Praha 12",
+  "titulek": "Izometrická Praha 12",
+  "h1": [
+    "Izometrická",
+    "Praha 12"
+  ],
+  "podtitul": "Praha 12 (Modřany, Kamýk, Komořany, Točná, Cholupice) z otevřených dat, ve stylu SimCity 2000.",
+  "popis": "Izometrická pixel-art mapa: Praha 12 ve stylu SimCity 2000. Roční období, den a noc, počasí a příběhy míst.",
+  "url": "https://nocartomas-arch.github.io/mapa-praha-12/",
+  "stred": [
+    14.412794,
+    49.989851
+  ],
+  "polovina": 1150.0,
+  "ctverce": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      0,
+      -1
+    ],
+    [
+      1,
+      -1
+    ]
+  ],
+  "href": 275.3,
+  "dno": -117,
+  "mhd": {
+    "gtfs": "https://data.pid.cz/PID_GTFS.zip",
+    "zdroj": "Pražská integrovaná doprava (ROPID)",
+    "zdroj_url": "https://pid.cz/o-systemu/opendata/"
+  },
+  "vanocni_strom": null
+}
