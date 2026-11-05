@@ -1,50 +1,50 @@
 {
- "nazev": "Jílové u Prahy",
- "titulek": "Izometrické Jílové u Prahy",
- "h1": [
-  "Izometrické",
-  "Jílové u Prahy"
- ],
- "podtitul": "Jílové u Prahy z otevřených dat, ve stylu SimCity 2000.",
- "popis": "Izometrická pixel-art mapa: Jílové u Prahy ve stylu SimCity 2000. Roční období, den a noc, počasí a příběhy míst.",
- "url": "",
- "stred": [
-  14.50267,
-  49.899961
- ],
- "polovina": 1150.0,
- "ctverce": [
-  [
-   0,
-   1
+  "nazev": "Jílové u Prahy",
+  "titulek": "Izometrické Jílové u Prahy",
+  "h1": [
+    "Izometrické",
+    "Jílové u Prahy"
   ],
-  [
-   -1,
-   0
+  "podtitul": "Jílové u Prahy z otevřených dat, ve stylu SimCity 2000.",
+  "popis": "Izometrická pixel-art mapa: Jílové u Prahy ve stylu SimCity 2000. Roční období, den a noc, počasí a příběhy míst.",
+  "url": "https://nocartomas-arch.github.io/mapa-jilove-u-prahy/",
+  "stred": [
+    14.50267,
+    49.899961
   ],
-  [
-   0,
-   0
+  "polovina": 1150.0,
+  "ctverce": [
+    [
+      0,
+      1
+    ],
+    [
+      -1,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      -1,
+      -1
+    ],
+    [
+      0,
+      -1
+    ],
+    [
+      -1,
+      -2
+    ]
   ],
-  [
-   -1,
-   -1
-  ],
-  [
-   0,
-   -1
-  ],
-  [
-   -1,
-   -2
-  ]
- ],
- "href": 315.5,
- "dno": -132,
- "mhd": {
-  "gtfs": "https://data.pid.cz/PID_GTFS.zip",
-  "zdroj": "Pražská integrovaná doprava (ROPID)",
-  "zdroj_url": "https://pid.cz/o-systemu/opendata/"
- },
- "vanocni_strom": null
+  "href": 315.5,
+  "dno": -132,
+  "mhd": {
+    "gtfs": "https://data.pid.cz/PID_GTFS.zip",
+    "zdroj": "Pražská integrovaná doprava (ROPID)",
+    "zdroj_url": "https://pid.cz/o-systemu/opendata/"
+  },
+  "vanocni_strom": null
 }
