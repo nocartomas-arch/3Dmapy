@@ -1563,8 +1563,8 @@ for n, ls in streets.items():
 graph = [{'p': [[round(x, 1), round(y, 1), round(float(z), 1)] for (x, y), z in zip(l.coords, ground(*np.array(l.coords).T))],
           'c': c, 'n': n} for l0, w, c, n in drive_lines for l in lines(l0.intersection(AREA.intersection(CLIP.buffer(-4)))) if l.length > 2]   # auta jen uvnitř mapy, přes šev ano
 graph += [{'p': deck_line(D), 'c': D[6], 'n': D[7]} for D in DECKS if D[6] in DRIVE and AREA.intersects(D[0])]   # po mostech ve výšce mostovky
-stops = [{'name': sname(r), 'x': r.geom.x, 'y': r.geom.y} for _, r in inf.iterrows()
-         if r['class'] == 'bus_stop' and AREA.contains(r.geom) and sname(r)]
+stops = [{'name': sname(r), 'x': c.x, 'y': c.y} for _, r in inf.iterrows()   # zastávka bývá i čára/plocha -> střed
+         if r['class'] == 'bus_stop' and AREA.contains(c := r.geom.representative_point()) and sname(r)]
 def zline(l):
     l = l.segmentize(3.0); xs_, ys_ = np.array(l.coords).T
     return [[round(x, 1), round(y, 1), round(float(z), 1)] for x, y, z in zip(xs_, ys_, ground(xs_, ys_))]
