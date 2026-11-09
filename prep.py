@@ -619,6 +619,7 @@ for l, w, c, n in drive_lines:
 bld = load('building')
 # jen budovy z OpenStreetMap: samotné odhady Microsoft ML Buildings jsou hlavně kůlny a garáže, často posunuté nebo zdvojené
 bld = bld[bld.sources.map(lambda s: s is not None and any(x['dataset'] == 'OpenStreetMap' for x in s))].reset_index(drop=True)
+bld = bld[~bld.id.map(lambda i: UP['b'].get(i, {}).get('smazat', False))].reset_index(drop=True)   # zbořené (upresneni.json: "smazat": true)
 for i, r in bld.iterrows():                             # výšky z upřesnění mají přednost před daty
     if 'h' in UP['b'].get(r.id, {}): bld.at[i, 'height'] = UP['b'][r.id]['h']
 if len(bld) and UP['roofs']:                            # přístřešky nástupišť (nejsou v OSM jako budovy)
