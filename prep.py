@@ -634,6 +634,14 @@ if len(bld) and UP['roofs']:                            # přístřešky nástup
         g = LineString([to_local(lo, la) for la, lo in q['line']]).buffer(q['w'] / 2, cap_style='flat', join_style='mitre')
         rows.append({**t0.to_dict(), 'id': f'up-roof-{i}', 'class': 'roof', 'subtype': None, 'names': None, 'height': q['h'], 'num_floors': float('nan'), 'roof_shape': None, 'geom': g, 'geometry': None})
     bld = pd.concat([bld, pd.DataFrame(rows)], ignore_index=True)
+if len(bld) and UP.get('stavby'):                     # stavby, které v datech nejsou (hrací věž, kůlna): {"body": [[lat, lon], ...], "h", "trida", "r", "rc", "wc"}
+    t0 = bld.iloc[0]; rows = []
+    for i, q in enumerate(UP['stavby']):
+        sid = f'up-stavba-{i}'
+        rows.append({**t0.to_dict(), 'id': sid, 'class': q.get('trida', 'shed'), 'subtype': None, 'names': None, 'height': q.get('h', 3.0),
+                     'num_floors': float('nan'), 'roof_shape': None, 'geom': Polygon([to_local(lo, la) for la, lo in q['body']]), 'geometry': None})
+        SAT['b'][sid] = {k: q[k] for k in ('r', 'rc', 'wc') if k in q}
+    bld = pd.concat([bld, pd.DataFrame(rows)], ignore_index=True)
 WALLS = [(232, 220, 192), (241, 234, 216), (217, 201, 163), (230, 211, 179), (214, 208, 196), (239, 230, 207),
          (216, 185, 143), (226, 196, 160), (205, 214, 206)]
 PANEL = [(232, 226, 208), (213, 217, 222), (236, 236, 230), (222, 224, 222), (226, 199, 154), (169, 195, 201), (238, 232, 218), (204, 210, 214)]   # sídliště hlavně bílá a světle šedá
