@@ -293,6 +293,9 @@ for _, r in inf.iterrows():                             # autobusové nádraží
 for _, r in inf.iterrows():
     if r['class'] == 'platform' and r.subtype == 'transit' and r.geom.geom_type in ('Polygon', 'MultiPolygon') and r.geom.area < 2000: fill(r.geom, C['paved'], block=True)
 for q in UP['paved']: fill(Polygon([to_local(lo, la) for la, lo in q]), C['paved'], block=True)
+for q in UP.get('bazeny', []):                  # bazény podle ortofota/fotek: [[lat, lon], ...] nebo [lat, lon, průměr_m]
+    g = Polygon([to_local(lo, la) for la, lo in q]) if isinstance(q[0], list) else Point(*to_local(q[1], q[0])).buffer(q[2] / 2, 24)
+    fill(g, C['pool'], outline=C['pool_edge'], block=True)
 
 wat = load('water')
 for _, r in wat.iterrows():
@@ -622,6 +625,7 @@ bld = bld[bld.sources.map(lambda s: s is not None and any(x['dataset'] == 'OpenS
 bld = bld[~bld.id.map(lambda i: UP['b'].get(i, {}).get('smazat', False))].reset_index(drop=True)   # zbořené (upresneni.json: "smazat": true)
 for i, r in bld.iterrows():                             # výšky z upřesnění mají přednost před daty
     if 'h' in UP['b'].get(r.id, {}): bld.at[i, 'height'] = UP['b'][r.id]['h']
+    if 'trida' in UP['b'].get(r.id, {}): bld.at[i, 'class'] = UP['b'][r.id]['trida']   # např. pergola: "trida": "roof"
 if len(bld) and UP['roofs']:                            # přístřešky nástupišť (nejsou v OSM jako budovy)
     t0 = bld.iloc[0]; rows = []
     for i, q in enumerate(UP['roofs']):
@@ -1390,6 +1394,8 @@ for _o in OBL.values():                      # oblast podle skutečnosti: náhod
     for la, lo, hh, con in _o['trees']:
         x, y = (float(v) for v in to_local(lo, la))
         if EXT_P.contains(Point(x, y)) and free(x, y): trees.insert(0, (x, y, hh, con, 0))
+for la, lo, rr in UP.get('bez_stromu', []):     # pokácené / neexistující stromy
+    _x, _y = to_local(lo, la); trees = [t for t in trees if (t[0] - _x) ** 2 + (t[1] - _y) ** 2 > rr * rr]
 seen = set(); T = []
 for t in trees:
     k = (round((t[0] + CX) / 3.0), round((t[1] + CY) / 3.0))
