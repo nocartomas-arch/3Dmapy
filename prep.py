@@ -293,6 +293,8 @@ for _, r in inf.iterrows():                             # autobusové nádraží
 for _, r in inf.iterrows():
     if r['class'] == 'platform' and r.subtype == 'transit' and r.geom.geom_type in ('Polygon', 'MultiPolygon') and r.geom.area < 2000: fill(r.geom, C['paved'], block=True)
 for q in UP['paved']: fill(Polygon([to_local(lo, la) for la, lo in q]), C['paved'], block=True)
+for q in UP.get('plochy', []):                   # povrchy podle skutečnosti: {"typ": "cobble|paved|dirt|...", "body": [[lat, lon], ...]}
+    fill(Polygon([to_local(lo, la) for la, lo in q['body']]), C[q.get('typ', 'paved')], block=True)
 for q in UP.get('bazeny', []):                  # bazény podle ortofota/fotek: [[lat, lon], ...] nebo [lat, lon, průměr_m]
     g = Polygon([to_local(lo, la) for la, lo in q]) if isinstance(q[0], list) else Point(*to_local(q[1], q[0])).buffer(q[2] / 2, 24)
     fill(g, C['pool'], outline=C['pool_edge'], block=True)
@@ -1079,6 +1081,7 @@ for _, r in bld.iterrows():
             if rs == 'flat': total = eave = med
             else: total = max(top, med + 1); eave = max(2.2, total - roofh)
         if c == 'roof': style = 12; total = hgt if hgt and hgt < 12 else 4.5; eave = total
+        if c == 'roof' and so.get('pergola'): style = 13; eave = total; roofh = so.get('rh', 1.6); total = eave + roofh; rs = 'gabled'   # pergola se sedlovou střechou
         if c in ('retail', 'commercial') and area > 1500 and not tenement: style = 3     # obchodní centra: pásy oken
         pal = TEN_WALLS if style == 11 else PANEL if style == 1 else WALLS
         wc = hexcol(r.facade_color, pal[int(h01((group_key(p.buffer(0.8)) if panel else key) + 'w') * 1000) % len(pal)])
@@ -1091,7 +1094,7 @@ for _, r in bld.iterrows():
             if 'wc' in dsp: wc = tuple(dsp['wc'])
             if 'rc' in dsp: rc = tuple(dsp['rc'])
             if 'win' in dsp: style = dsp['win']
-        ring = [[round(x, 2), round(y, 2)] for x, y in list(p.exterior.coords)[:-1]]
+        ring = [[round(x, 2), round(y, 2)] for x, y in list((p.minimum_rotated_rectangle if style == 13 else p).exterior.coords)[:-1]]
         b = {'p': ring, 'b': round(base, 2), 'g': round(gnd, 2), 'e': round(gnd + eave, 2), 'r': rs, 'rh': round(roofh, 2),
              'parts': parts, 'wc': wc, 'rc': rc, 's': style, 'id': bid}
         if lm: b['lm'] = lm
