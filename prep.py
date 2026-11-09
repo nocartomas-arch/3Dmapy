@@ -640,7 +640,7 @@ if len(bld) and UP.get('stavby'):                     # stavby, které v datech 
         sid = f'up-stavba-{i}'
         rows.append({**t0.to_dict(), 'id': sid, 'class': q.get('trida', 'shed'), 'subtype': None, 'names': None, 'height': q.get('h', 3.0),
                      'num_floors': float('nan'), 'roof_shape': None, 'geom': Polygon([to_local(lo, la) for la, lo in q['body']]), 'geometry': None})
-        SAT['b'][sid] = {k: q[k] for k in ('r', 'rc', 'wc') if k in q}
+        SAT['b'][sid] = {k: q[k] for k in ('r', 'rc', 'wc', 'pergola', 'rh') if k in q}
     bld = pd.concat([bld, pd.DataFrame(rows)], ignore_index=True)
 WALLS = [(232, 220, 192), (241, 234, 216), (217, 201, 163), (230, 211, 179), (214, 208, 196), (239, 230, 207),
          (216, 185, 143), (226, 196, 160), (205, 214, 206)]
