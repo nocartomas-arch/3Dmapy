@@ -5,7 +5,7 @@
 # Verzuje se jen recept města (mesto.json, mista.json, assets/dominanty.json); data, build a site jsou v .gitignore.
 set -e
 cd "$(dirname "$0")"
-FILES="mesto.json mista.json assets/dominanty.json assets/dmp_vysky.json assets/zabaged.json"
+FILES="mesto.json mista.json assets/dominanty.json assets/dmp_vysky.json assets/zabaged.json assets/satelit.json"
 DIRS="build site data data_all"
 cur=$(cat .mesto 2>/dev/null || true)
 
@@ -36,7 +36,7 @@ for d in $DIRS; do mkdir -p "mesta/$new/$d"; ln -sfn "mesta/$new/$d" "$d"; done
 for d in mesta/"$new"/data_c*; do [ -d "$d" ] && ln -sfn "$d" "$(basename "$d")"; done
 ln -sfn "mesta/$new/mesto.json" mesto.json
 ln -sfn "mesta/$new/mista.json" mista.json
-for f in dominanty.json dmp_vysky.json zabaged.json; do ln -sfn "../mesta/$new/assets/$f" "assets/$f"; done
+for f in dominanty.json dmp_vysky.json zabaged.json satelit.json; do ln -sfn "../mesta/$new/assets/$f" "assets/$f"; done
 echo "$new" > .mesto
 echo "aktivní město: $new"
 [ -f "mesta/$new/mesto.json" ] || echo "nové město – založ ho: .venv/bin/python novy_mesto.py \"Název\" --dotaz \"Název, okres X\""

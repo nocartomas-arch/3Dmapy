@@ -32,6 +32,7 @@ assets/dmp_vysky.json
 /assets/dominanty.json
 /assets/dmp_vysky.json
 /assets/zabaged.json
+/assets/satelit.json
 mesta/*/*
 !mesta/*/mesto.json
 !mesta/*/mista.json

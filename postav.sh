@@ -16,6 +16,7 @@ if [ "$1" != render ]; then
   [ -f assets/zabaged.json ] || { python nastroje/zabaged.py && python nastroje/pole.py; } # pole a louky
 fi
 for c in $CH; do python prep.py $(dir $c) $c > /dev/null && echo "scéna $c"; done
+[ "$1" = render ] && rm -f build/tiles_*/.hotovo build/c*/tiles_*/.hotovo     # přestavba: hotové varianty renderovat znovu
 for c in $CH; do ./render_chunk.sh $c; done
 rm -rf site/tiles && mkdir -p site/tiles && rm -f site/tiles.json
 python dzi.py
