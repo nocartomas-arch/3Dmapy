@@ -7,7 +7,7 @@ Hodí se pro malé, detailní mapy (vesnice, čtvrť); u velkého města je orto
   python nastroje/strechy.py            # stáhne ortofoto (build/orto_strechy.jpg) a zapíše assets/satelit.json
   python nastroje/strechy.py --kontrola # navíc build/strechy_kontrola.png (ortofoto | naměřené barvy)
 """
-import glob, json, math, os, sys, urllib.request
+import colorsys, glob, json, math, os, sys, urllib.request
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import numpy as np, pandas as pd, shapely
 from PIL import Image, ImageDraw
@@ -63,7 +63,10 @@ for _, r in bld.iterrows():
     if ok.sum() < 0.35 * len(sel): continue                                         # střecha skoro celá pod stromem/ve stínu
     c = np.median(sel[ok], 0)
     # do tónu mapy: snímek je světlejší a vybledlejší než paleta střech
-    mean = c.mean(); c = mean + (c - mean) * 1.25; c = np.clip(c * 0.86, 0, 255)
+    # v HSV: sytost ×1,7 (pálené tašky mají v paletě sytost ~0,7, na snímku ~0,4), jas ×0,9; šedé (plech, eternit) nechat šedé
+    h, sat, val = colorsys.rgb_to_hsv(*(c / 255))
+    if sat > 0.12: sat = min(0.85, sat * 1.7)
+    c = np.array(colorsys.hsv_to_rgb(h, sat, val * 0.9)) * 255
     out[r.id] = {'rc': [int(v) for v in c]}
     kontrola.append((polys, c))
 old = json.load(open(OUT)) if os.path.exists(OUT) else {'b': {}, 'lu': {}, 'zones': []}
