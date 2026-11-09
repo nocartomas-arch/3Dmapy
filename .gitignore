@@ -33,12 +33,14 @@ assets/dmp_vysky.json
 /assets/dmp_vysky.json
 /assets/zabaged.json
 /assets/satelit.json
+/assets/upresneni.json
 mesta/*/*
 !mesta/*/mesto.json
 !mesta/*/mista.json
 !mesta/*/assets/
 mesta/*/assets/*
 !mesta/*/assets/dominanty.json
+!mesta/*/assets/upresneni.json
 mesta/*.log
 mesta/*/pages*.git
 mesta/rozcestnik.git

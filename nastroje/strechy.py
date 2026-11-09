@@ -63,10 +63,13 @@ for _, r in bld.iterrows():
     if ok.sum() < 0.35 * len(sel): continue                                         # střecha skoro celá pod stromem/ve stínu
     c = np.median(sel[ok], 0)
     # do tónu mapy: snímek je světlejší a vybledlejší než paleta střech
-    # v HSV: sytost ×1,7 (pálené tašky mají v paletě sytost ~0,7, na snímku ~0,4), jas ×0,9; šedé (plech, eternit) nechat šedé
+    # v HSV: sytost ×2,2, jas ×1,08 (kalibrace: fotka střechy vs. snímek); šedé (plech, eternit) nechat šedé
     h, sat, val = colorsys.rgb_to_hsv(*(c / 255))
-    if sat > 0.12: sat = min(0.85, sat * 1.7)
-    c = np.array(colorsys.hsv_to_rgb(h, sat, val * 0.9)) * 255
+    # podle fotky skutečné střechy (Levín, pálené tašky): oranžová h≈17°, s≈0,74 – snímek má s≈0,4
+    if sat > 0.12:
+        sat = min(0.85, sat * 2.2)
+        if h < 10 / 360 or h > 340 / 360: h = 10 / 360          # zestárlé tašky na snímku do fialova -> cihlová
+    c = np.array(colorsys.hsv_to_rgb(h, sat, min(1.0, val * 1.08))) * 255
     out[r.id] = {'rc': [int(v) for v in c]}
     kontrola.append((polys, c))
 old = json.load(open(OUT)) if os.path.exists(OUT) else {'b': {}, 'lu': {}, 'zones': []}
