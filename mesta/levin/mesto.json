@@ -1,0 +1,30 @@
+{
+ "nazev": "Starý Levín",
+ "titulek": "Izometrický Starý Levín",
+ "h1": [
+  "Izometrický",
+  "Starý Levín"
+ ],
+ "podtitul": "Starý Levín (Králův Dvůr) z otevřených dat, ve stylu SimCity 2000.",
+ "popis": "Izometrická pixel-art mapa: Starý Levín v Králově Dvoře ve stylu SimCity 2000. Roční období, den a noc, počasí a příběhy míst.",
+ "url": "https://nocartomas-arch.github.io/mapa-levin/",
+ "stred": [
+  14.00136,
+  49.92845
+ ],
+ "polovina": 300.0,
+ "ctverce": [
+  [
+   0,
+   0
+  ]
+ ],
+ "href": 270.8,
+ "dno": -77,
+ "mhd": {
+  "gtfs": "https://data.pid.cz/PID_GTFS.zip",
+  "zdroj": "Pražská integrovaná doprava (ROPID)",
+  "zdroj_url": "https://pid.cz/o-systemu/opendata/"
+ },
+ "vanocni_strom": null
+}
