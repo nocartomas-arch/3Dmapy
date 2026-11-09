@@ -1310,6 +1310,10 @@ for _, r in inf.iterrows():
         l = l.segmentize(4.0)
         xs_, ys_ = np.array(l.coords).T
         lines_out[kk].append([[round(x, 2), round(y, 2), round(float(zz), 2)] for x, y, zz in zip(xs_, ys_, ground(xs_, ys_))])
+for q in UP.get('ploty', []):                    # ruční ploty/živé ploty/zídky: {"typ": "fence|hedge|wall", "body": [[lat, lon], ...]}
+    for l in lines(LineString([to_local(lo, la) for la, lo in q['body']]).intersection(AREA)):
+        l = l.segmentize(4.0); xs_, ys_ = np.array(l.coords).T
+        lines_out[q.get('typ', 'fence')].append([[round(x, 2), round(y, 2), round(float(zz), 2)] for x, y, zz in zip(xs_, ys_, ground(xs_, ys_))])
 for k in props: props[k] = [[round(v, 3) for v in q] for q in props[k]]
 cars = [[round(x, 2), round(y, 2), round(float(ground(x, y)), 2), round(a, 3), ci] for x, y, a, ci in cars]
 cars += [[round(x, 2), round(y, 2), round(z, 2), round(a, 3), ci] for x, y, z, a, ci in ROOF_CARS if AREA.contains(Point(x, y))]   # parkoviště na střechách
